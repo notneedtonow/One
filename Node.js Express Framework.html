@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)https://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm -->
+<html lang="en" style="" class=" js no-touch csstransforms3d csstransitions"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Node.js Express Framework</title>
+<meta name="description" content="Node.js Express Framework - Learn Node.js framework in simple and easy steps starting from basic to advanced concepts with examples including Introduction, Environment Setup, Node Package Manager, Node Callbacks Concept, Node Buffers Module, Node Streams, Node File System, Node Utility Modules, Node Web Module, Node Express Application, Node RESTFul API, Node Scaling Application.">
+<meta name="keywords" content="Node.js, Tutorial, Introduction, Environment Setup, Node Package Manager, Global vs Local Installation, Node Callbacks Concept, locking vs non-blocking Code, Event Driven Programming, Event Loop Overview, Event Emitters, Implementing Callbacks, Node Buffers Module,JSON to JS Objects, JS Objects to JSON, Buffer Objects, Node Streams, Reading Stream, Writing Stream, Piping Stream, Node File System, File System Module, Synchronous vs Asynchronous Node, Utility Modules,Node Console Module, Node Process Module, Node OS Module, Node Path Module, Node Net Module, Node DNS Module, Node Domain Module, Node Web Module,HTTP Servers with Node.js, HTTP Clients with Node.js, Node Express Application, Express Overview, Installing Express, Express Generator, Node RESTFul API, Node Scaling Application,The exec function,The spawn function,The fork function.">
+<!--<base href="https://www.tutorialspoint.com/">--><base href=".">
+<link rel="shortcut icon" href="https://www.tutorialspoint.com/favicon.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="fb:app_id" content="471319149685276">
+<meta property="og:site_name" content="www.tutorialspoint.com">
+<meta name="robots" content="index, follow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="author" content="tutorialspoint.com">
+<script src="./Node.js Express Framework_files/ca-pub-7133395778201029.js.tải xuống"></script><script type="text/javascript" src="./Node.js Express Framework_files/script-min-v4.js.tải xuống"></script>
+<link rel="stylesheet" href="./Node.js Express Framework_files/style-min.css">
+<!-- Head Libs -->
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="/theme/css/ie8.css">
+<![endif]-->
+<style>
+pre.prettyprint.tryit {min-height:37px; background: #eee url(/nodejs/images/try-it.jpg) top right no-repeat !important}div.feature-box div.feature-box-icon, .col-md-3 .course-box, li.heading, div.footer-copyright { background: #82af25 url(/images/pattern.png) repeat center center !important;}
+.sub-main-menu .sub-menuu div:hover, .sub-main-menu .viewall, header nav ul.nav-main li a:hover, button.btn-responsive-nav, header div.search button.btn-default { background: #82af25 !important;}
+.submenu-item{ border-bottom: 2px solid #82af25 !important; border-top: 2px solid #82af25 !important }
+</style>
+<script>
+$(document).ready(function() {
+  $('input[name="q"]').keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
+</script>
+</head>
+<body onload="prettyPrint()" style="">
+<div class="wrapLoader">
+   <div class="imgLoader">
+      <img src="./Node.js Express Framework_files/loading-cg.gif" alt="" width="70" height="70">
+   </div>
+</div>
+<header>
+   <div class="container">			
+      <h1 class="logo">
+      <a href="https://www.tutorialspoint.com/index.htm" title="tutorialspoint">
+      <img alt="tutorialspoint" src="./Node.js Express Framework_files/logo.png">
+      </a>
+      </h1>			
+      <nav>
+         <ul class="nav nav-pills nav-top">
+            <li><a href="https://www.tutorialspoint.com/about/about_careers.htm" style="background: #fffb09; font-weight: bold;"><i class="icon icon-suitcase"></i> Jobs</a></li>
+            <li> <a href="https://www.send18.com/"><i class="fa fa-send"></i> &nbsp;Send18</a> </li>
+            <li> <a href="https://www.tutorialspoint.com/whiteboard.htm"><img src="./Node.js Express Framework_files/image-editor.png" style="opacity:.6"> &nbsp;Whiteboard</a> </li>
+            <li> <a href="https://www.tutorialspoint.com/netmeeting.php"><i class="fa-camera"></i> &nbsp;Net Meeting</a> </li>
+            <li> <a href="https://www.tutorialspoint.com/online_dev_tools.htm"> <i class="dev-tools-menu" style="opacity:.5"></i> Tools </a> </li>
+            <li> <a href="https://www.tutorialspoint.com/articles/index.php"><i class="icon icon-file-text-o"></i> &nbsp;Articles</a> </li>            
+            <li class="top-icons">
+              <ul class="social-icons">
+              <li class="facebook"><a href="https://www.facebook.com/tutorialspointindia" target="_blank" data-placement="bottom" title="tutorialspoint @ Facebook">Facebook</a></li>
+              <li class="googleplus"><a href="https://plus.google.com/u/0/116678774017490391259/posts" target="_blank" data-placement="bottom" title="tutorialspoint @ Google+">Google+</a></li>
+              <li class="twitter"><a href="https://www.twitter.com/tutorialspoint" target="_blank" data-placement="bottom" title="tutorialspoint @ Twitter">Twitter</a></li>
+              <li class="linkedin"><a href="https://www.linkedin.com/company/tutorialspoint" target="_blank" data-placement="bottom" title="tutorialspoint @ Linkedin">Linkedin</a></li>
+              <li class="youtube"><a href="https://www.youtube.com/channel/UCVLbzhxVTiTLiVKeGV7WEBg" target="_blank" data-placement="bottom" title="tutorialspoint YouTube">YouTube</a></li>
+              </ul>
+           </li>
+         </ul>
+      </nav>
+         <!-- search code here  --> 
+      <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse" id="pull" style="top: 5444px!important"> <i class="icon icon-bars"></i> </button>
+   </div>
+   <div class="navbar nav-main">
+      <div class="container">
+         <nav class="nav-main mega-menu">
+            <ul class="nav nav-pills nav-main" id="mainMenu">
+               <li class="dropdown no-sub-menu"> <a class="dropdown" href="https://www.tutorialspoint.com/index.htm"><i class="icon icon-home"></i> Home</a> </li>   
+               <li class="dropdown" id="liTL"><a class="dropdown" href="javascript:void(0);"><span class="tut-lib"> Tutorials Library <i class="fa-caret-down"></i></span></a></li>
+               <li class="dropdown no-sub-menu"><a class="dropdown" href="https://www.tutorialspoint.com/codingground.htm"><i class="fa-code"></i> Coding Ground </a> </li>
+               <li class="dropdown no-sub-menu"><a class="dropdown" href="https://www.tutorialspoint.com/tutor_connect/index.php"><i class="fa-user"> </i> Tutor Connect</a></li>
+               <li class="dropdown no-sub-menu"><a class="dropdown" href="https://www.tutorialspoint.com/videotutorials/index.htm"><i class="fa-toggle-right"></i> Videos </a></li>
+               <li class="dropdown no-sub-menu">
+                  <div class="searchform-popup">
+                     <input class="header-search-box" type="text" id="search-string" name="q" placeholder="Search your favorite tutorials..." onfocus="if (this.value == &#39;Search your favorite tutorials...&#39;) {this.value = &#39;&#39;;}" onblur="if (this.value == &#39;&#39;) {this.value = &#39;Search your favorite tutorials...&#39;;}" autocomplete="off">
+                     <div class="magnifying-glass"><i class="icon-search"></i> Search </div>
+                 </div>
+               </li>
+            </ul>
+         </nav>
+         <div class="submenu-item sub-main-menu" id="top-sub-menu"></div>
+         
+      </div>
+   </div>	
+</header>
+<div style="clear:both;"></div>
+<div role="main" class="main">
+<div class="container">
+<div class="row">
+<div class="col-md-2">
+<aside class="sidebar">
+<div class="mini-logo">
+<img src="./Node.js Express Framework_files/nodejs-mini-logo.jpg" alt="Node.js Tutorial">
+</div>
+<ul class="nav nav-list primary left-menu">
+<li class="heading">Node.js Tutorial</li>
+<li><a href="https://www.tutorialspoint.com/nodejs/index.htm">Node.js - Home</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_introduction.htm">Node.js - Introduction</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_environment_setup.htm">Node.js - Environment Setup</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_first_application.htm">Node.js - First Application</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_repl_terminal.htm">Node.js - REPL Terminal</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_npm.htm">Node.js - Package Manager (NPM)</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_callbacks_concept.htm">Node.js - Callbacks Concept</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_event_loop.htm">Node.js - Event Loop</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_event_emitter.htm">Node.js - Event Emitter</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_buffers.htm">Node.js - Buffers</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_streams.htm">Node.js - Streams</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_file_system.htm">Node.js - File System</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_global_objects.htm">Node.js - Global Objects</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_utitlity_module.htm">Node.js - Utility Modules</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_web_module.htm">Node.js - Web Module</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm" style="background-color: rgb(214, 214, 214);">Node.js - Express Framework</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm">Node.js - RESTFul API</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_scaling_application.htm">Node.js - Scaling Application</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_packaging.htm">Node.js - Packaging</a></li>
+<li class="heading">Node.js Useful Resources</li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_quick_guide.htm">Node.js - Quick Guide</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_useful_resources.htm">Node.js - Useful Resources</a></li>
+<li><a href="https://www.tutorialspoint.com/nodejs/nodejs_discussion.htm">Node.js - Dicussion</a></li>
+</ul>
+<ul class="nav nav-list primary push-bottom left-menu special">
+<li class="sreading">Selected Reading</li>
+<li><a target="_top" href="https://www.tutorialspoint.com/developers_best_practices/index.htm">Developer's Best Practices</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/questions_and_answers.htm">Questions and Answers</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/effective_resume_writing.htm">Effective Resume Writing</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/hr_interview_questions/index.htm">HR Interview Questions</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/computer_glossary.htm">Computer Glossary</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/computer_whoiswho.htm">Who is Who</a></li>
+</ul>
+ </aside>
+</div>
+<!-- PRINTING STARTS HERE -->
+<div class="row">
+<div class="content">
+<div class="col-md-7 middle-col">
+<h1>Node.js - Express Framework</h1>
+<div class="topgooglead">
+<hr>
+<div style="padding-bottom:5px;padding-left:10px;">Advertisements</div>
+<script type="text/javascript"><!--
+google_ad_client = "pub-7133395778201029";
+google_ad_width = 468;
+google_ad_height = 60;
+google_ad_format = "468x60_as";
+google_ad_type = "image";
+google_ad_channel = "";
+//--></script>
+<script type="text/javascript" src="./Node.js Express Framework_files/show_ads.js.tải xuống"> 
+</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><iframe width="468" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./Node.js Express Framework_files/saved_resource.html"></iframe></ins></ins>
+</div>
+<hr>
+<div class="pre-btn">
+<a href="https://www.tutorialspoint.com/nodejs/nodejs_web_module.htm"><i class="icon icon-arrow-circle-o-left big-font"></i> Previous Page</a>
+</div>
+<div class="nxt-btn">
+<a href="https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm">Next Page <i class="icon icon-arrow-circle-o-right big-font"></i>&nbsp;</a>
+</div>
+<div class="clearer"></div>
+<hr>
+<h2>Express Overview</h2>
+<p>Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications. It facilitates the rapid development of Node based Web applications. Following are some of the core features of Express framework −</p>
+<ul class="list">
+<li><p>Allows to set up middlewares to respond to HTTP Requests.</p></li>
+<li><p>Defines a routing table which is used to perform different actions based on HTTP Method and URL.</p></li>
+<li><p>Allows to dynamically render HTML Pages based on passing arguments to templates.</p></li>
+</ul>
+<h2>Installing Express</h2>
+<p>Firstly, install the Express framework globally using NPM so that it can be used to create a web application using node terminal.</p>
+<pre class="result notranslate">$ npm install express --save
+</pre>
+<p>The above command saves the installation locally in the <b>node_modules</b> directory and creates a directory express inside node_modules. You should install the following important modules along with express −</p>
+<ul class="list">
+<li><p><b>body-parser</b> −  This is a node.js middleware for handling JSON, Raw, Text and URL encoded form data.</p></li>
+<li><p><b>cookie-parser</b> −  Parse Cookie header and populate req.cookies with an object keyed by the cookie names.</p></li>
+<li><p><b>multer</b> −  This is a node.js middleware for handling multipart/form-data.</p></li>
+</ul>
+<pre class="result notranslate">$ npm install body-parser --save
+$ npm install cookie-parser --save
+$ npm install multer --save
+</pre>
+<h2>Hello world Example</h2>
+<p>Following is a very basic Express app which starts a server and listens on port 3000 for connection. This app responds with <b>Hello World!</b> for requests to the homepage. For every other path, it will respond with a <b>404 Not Found.</b></p>
+<pre class="prettyprint notranslate prettyprinted"><span class="kwd">var</span><span class="pln"> express </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'express'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> app </span><span class="pun">=</span><span class="pln"> express</span><span class="pun">();</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'Hello World'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> server </span><span class="pun">=</span><span class="pln"> app</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">(</span><span class="lit">8081</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">address
+   </span><span class="kwd">var</span><span class="pln"> port </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">port
+   
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Example app listening at http://%s:%s"</span><span class="pun">,</span><span class="pln"> host</span><span class="pun">,</span><span class="pln"> port</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">})</span></pre>
+<p>Save the above code in a file named server.js and run it with the following command.</p>
+<pre class="result notranslate">$ node server.js
+</pre>
+<p>You will see the following output −</p>
+<pre class="result notranslate">Example app listening at http://0.0.0.0:8081
+</pre>
+<p>Open http://127.0.0.1:8081/ in any browser to see the following result.</p>
+<img src="./Node.js Express Framework_files/nodejs_sample.jpg" alt="First Application">
+<h2>Request &amp; Response</h2>
+<p>Express application uses a callback function whose parameters are <b>request</b> and <b>response</b> objects.</p>
+<pre class="result notranslate">app.get('/', function (req, res) {
+   // --
+})
+</pre>
+<ul class="list">
+<li><p><a href="https://www.tutorialspoint.com/nodejs/nodejs_request_object.htm">Request Object</a> −  The request object represents the HTTP request and has properties for the request query string, parameters, body, HTTP headers, and so on.</p></li>
+<li><p><a href="https://www.tutorialspoint.com/nodejs/nodejs_response_object.htm">Response Object</a>  − The response object represents the HTTP response that an Express app sends when it gets an HTTP request.</p></li>
+</ul>
+<p>You can print <b>req</b> and <b>res</b> objects which provide a lot of information related to HTTP request and response including cookies, sessions, URL, etc.</p>
+<h2>Basic Routing</h2>
+<p>We have seen a basic application which serves HTTP request for the homepage. Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on).</p>
+<p>We will extend our Hello World program to handle more types of HTTP requests.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="kwd">var</span><span class="pln"> express </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'express'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> app </span><span class="pun">=</span><span class="pln"> express</span><span class="pun">();</span><span class="pln">
+
+</span><span class="com">// This responds with "Hello World" on the homepage</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Got a GET request for the homepage"</span><span class="pun">);</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'Hello GET'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="com">// This responds a POST request for the homepage</span><span class="pln">
+app</span><span class="pun">.</span><span class="pln">post</span><span class="pun">(</span><span class="str">'/'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Got a POST request for the homepage"</span><span class="pun">);</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'Hello POST'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="com">// This responds a DELETE request for the /del_user page.</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">delete</span><span class="pun">(</span><span class="str">'/del_user'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Got a DELETE request for /del_user"</span><span class="pun">);</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'Hello DELETE'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="com">// This responds a GET request for the /list_user page.</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/list_user'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Got a GET request for /list_user"</span><span class="pun">);</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'Page Listing'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="com">// This responds a GET request for abcd, abxcd, ab123cd, and so on</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/ab*cd'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">   
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Got a GET request for /ab*cd"</span><span class="pun">);</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'Page Pattern Match'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> server </span><span class="pun">=</span><span class="pln"> app</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">(</span><span class="lit">8081</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+   </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">address
+   </span><span class="kwd">var</span><span class="pln"> port </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">port
+
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Example app listening at http://%s:%s"</span><span class="pun">,</span><span class="pln"> host</span><span class="pun">,</span><span class="pln"> port</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">})</span></pre>
+<p>Save the above code in a file named server.js and run it with the following command.</p>
+<pre class="result notranslate">$ node server.js
+</pre>
+<p>You will see the following output −</p>
+<pre class="result notranslate">Example app listening at http://0.0.0.0:8081
+</pre>
+<p>Now you can try different requests at http://127.0.0.1:8081 to see the output generated by server.js. Following are a few screens hots showing different responses for different URLs.</p>
+<p>Screen showing again http://127.0.0.1:8081/list_user</p>
+<img src="./Node.js Express Framework_files/nodejs_sample2.jpg" alt="Second Application">
+<p>Screen showing again http://127.0.0.1:8081/abcd</p>
+<img src="./Node.js Express Framework_files/nodejs_sample3.jpg" alt="Third Application">
+<p>Screen showing again http://127.0.0.1:8081/abcdefg</p>
+<img src="./Node.js Express Framework_files/nodejs_sample4.jpg" alt="Fourth Application">
+<h2>Serving Static Files</h2>
+<p>Express provides a built-in middleware <b>express.static</b> to serve static files, such as images, CSS, JavaScript, etc.</p>
+<p>You simply need to pass the name of the directory where you keep your static assets, to the <b>express.static</b> middleware to start serving the files directly. For example, if you keep your images, CSS, and JavaScript files in a directory named public, you can do this −</p>
+<pre class="result notranslate">app.use(express.static('public'));
+</pre>
+<p>We will keep a few images in <b>public/images</b> sub-directory as follows −</p>
+<pre class="result notranslate">node_modules
+server.js
+public/
+public/images
+public/images/logo.png
+</pre>
+<p>Let's modify "Hello Word" app to add the functionality to handle static files.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="kwd">var</span><span class="pln"> express </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'express'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> app </span><span class="pun">=</span><span class="pln"> express</span><span class="pun">();</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">use</span><span class="pun">(</span><span class="pln">express</span><span class="pun">.</span><span class="kwd">static</span><span class="pun">(</span><span class="str">'public'</span><span class="pun">));</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'Hello World'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> server </span><span class="pun">=</span><span class="pln"> app</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">(</span><span class="lit">8081</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">address
+   </span><span class="kwd">var</span><span class="pln"> port </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">port
+
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Example app listening at http://%s:%s"</span><span class="pun">,</span><span class="pln"> host</span><span class="pun">,</span><span class="pln"> port</span><span class="pun">)</span><span class="pln">
+
+</span><span class="pun">})</span></pre>
+<p>Save the above code in a file named server.js and run it with the following command.</p>
+<pre class="result notranslate">$ node server.js
+</pre>
+<p>Now open http://127.0.0.1:8081/images/logo.png in any browser and see observe following result.</p>
+<img src="./Node.js Express Framework_files/nodejs_sample5.jpg" alt="Fifth Application">
+<h2>GET Method</h2>
+<p>Here is a simple example which passes two values using HTML FORM GET method. We are going to use <b>process_get</b> router inside server.js to handle this input.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="tag">&lt;html&gt;</span><span class="pln">
+   </span><span class="tag">&lt;body&gt;</span><span class="pln">
+      
+      </span><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">action</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"http://127.0.0.1:8081/process_get"</span><span class="pln"> </span><span class="atn">method</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"GET"</span><span class="tag">&gt;</span><span class="pln">
+         First Name: </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">name</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"first_name"</span><span class="tag">&gt;</span><span class="pln">  </span><span class="tag">&lt;br&gt;</span><span class="pln">
+         Last Name: </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">name</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"last_name"</span><span class="tag">&gt;</span><span class="pln">
+         </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">value</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"Submit"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/form&gt;</span><span class="pln">
+      
+   </span><span class="tag">&lt;/body&gt;</span><span class="pln">
+</span><span class="tag">&lt;/html&gt;</span></pre>
+<p>Let's save above code in index.htm and modify server.js to handle home page requests as well as the input sent by the HTML form.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="kwd">var</span><span class="pln"> express </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'express'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> app </span><span class="pun">=</span><span class="pln"> express</span><span class="pun">();</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">use</span><span class="pun">(</span><span class="pln">express</span><span class="pun">.</span><span class="kwd">static</span><span class="pun">(</span><span class="str">'public'</span><span class="pun">));</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/index.htm'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">sendFile</span><span class="pun">(</span><span class="pln"> __dirname </span><span class="pun">+</span><span class="pln"> </span><span class="str">"/"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"index.htm"</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/process_get'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="com">// Prepare output in JSON format</span><span class="pln">
+   response </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      first_name</span><span class="pun">:</span><span class="pln">req</span><span class="pun">.</span><span class="pln">query</span><span class="pun">.</span><span class="pln">first_name</span><span class="pun">,</span><span class="pln">
+      last_name</span><span class="pun">:</span><span class="pln">req</span><span class="pun">.</span><span class="pln">query</span><span class="pun">.</span><span class="pln">last_name
+   </span><span class="pun">};</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">response</span><span class="pun">);</span><span class="pln">
+   res</span><span class="pun">.</span><span class="kwd">end</span><span class="pun">(</span><span class="pln">JSON</span><span class="pun">.</span><span class="pln">stringify</span><span class="pun">(</span><span class="pln">response</span><span class="pun">));</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> server </span><span class="pun">=</span><span class="pln"> app</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">(</span><span class="lit">8081</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">address
+   </span><span class="kwd">var</span><span class="pln"> port </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">port
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Example app listening at http://%s:%s"</span><span class="pun">,</span><span class="pln"> host</span><span class="pun">,</span><span class="pln"> port</span><span class="pun">)</span><span class="pln">
+
+</span><span class="pun">})</span></pre>
+<p>Accessing the HTML document using <i>http://127.0.0.1:8081/index.htm</i> will generate the following form −</p>
+<pre class="result notranslate"><form action="http://127.0.0.1:8081/process_post" method="POST">
+<table>
+<tbody><tr>
+<td>First Name:</td>
+<td><input type="text" name="first_name"></td>
+</tr>
+<tr>
+<td>Last Name:</td>
+<td><input type="text" name="last_name"></td>
+</tr>
+<tr>
+<td colspan="2"><input type="button" value="Submit"></td>
+</tr>
+</tbody></table>
+</form>
+</pre>
+<p>Now you can enter the First and Last Name and then click submit button to see the result and it should return the following result −</p>
+<pre class="result notranslate">{"first_name":"John","last_name":"Paul"}
+</pre>
+<h2>POST Method</h2>
+<p>Here is a simple example which passes two values using HTML FORM POST method. We are going to use <b>process_get</b> router inside server.js to handle this input.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="tag">&lt;html&gt;</span><span class="pln">
+   </span><span class="tag">&lt;body&gt;</span><span class="pln">
+      
+      </span><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">action</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"http://127.0.0.1:8081/process_post"</span><span class="pln"> </span><span class="atn">method</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"POST"</span><span class="tag">&gt;</span><span class="pln">
+         First Name: </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">name</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"first_name"</span><span class="tag">&gt;</span><span class="pln"> </span><span class="tag">&lt;br&gt;</span><span class="pln">
+         Last Name: </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">name</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"last_name"</span><span class="tag">&gt;</span><span class="pln">
+         </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">value</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"Submit"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/form&gt;</span><span class="pln">
+      
+   </span><span class="tag">&lt;/body&gt;</span><span class="pln">
+</span><span class="tag">&lt;/html&gt;</span></pre>
+<p>Let's save the above code in index.htm and modify server.js to handle home page requests as well as the input sent by the HTML form.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="kwd">var</span><span class="pln"> express </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'express'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> app </span><span class="pun">=</span><span class="pln"> express</span><span class="pun">();</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> bodyParser </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'body-parser'</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Create application/x-www-form-urlencoded parser</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> urlencodedParser </span><span class="pun">=</span><span class="pln"> bodyParser</span><span class="pun">.</span><span class="pln">urlencoded</span><span class="pun">({</span><span class="pln"> extended</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pln"> </span><span class="pun">})</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">use</span><span class="pun">(</span><span class="pln">express</span><span class="pun">.</span><span class="kwd">static</span><span class="pun">(</span><span class="str">'public'</span><span class="pun">));</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/index.htm'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">sendFile</span><span class="pun">(</span><span class="pln"> __dirname </span><span class="pun">+</span><span class="pln"> </span><span class="str">"/"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"index.htm"</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="pln">post</span><span class="pun">(</span><span class="str">'/process_post'</span><span class="pun">,</span><span class="pln"> urlencodedParser</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="com">// Prepare output in JSON format</span><span class="pln">
+   response </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      first_name</span><span class="pun">:</span><span class="pln">req</span><span class="pun">.</span><span class="pln">body</span><span class="pun">.</span><span class="pln">first_name</span><span class="pun">,</span><span class="pln">
+      last_name</span><span class="pun">:</span><span class="pln">req</span><span class="pun">.</span><span class="pln">body</span><span class="pun">.</span><span class="pln">last_name
+   </span><span class="pun">};</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">response</span><span class="pun">);</span><span class="pln">
+   res</span><span class="pun">.</span><span class="kwd">end</span><span class="pun">(</span><span class="pln">JSON</span><span class="pun">.</span><span class="pln">stringify</span><span class="pun">(</span><span class="pln">response</span><span class="pun">));</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> server </span><span class="pun">=</span><span class="pln"> app</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">(</span><span class="lit">8081</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">address
+   </span><span class="kwd">var</span><span class="pln"> port </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">port
+   
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Example app listening at http://%s:%s"</span><span class="pun">,</span><span class="pln"> host</span><span class="pun">,</span><span class="pln"> port</span><span class="pun">)</span><span class="pln">
+
+</span><span class="pun">})</span></pre>
+<p>Accessing the HTML document using <i>http://127.0.0.1:8081/index.htm</i> will generate the following form −</p>
+<pre class="result notranslate"><form action="http://127.0.0.1:8081/process_post" method="POST">
+<table>
+<tbody><tr>
+<td>First Name:</td>
+<td><input type="text" name="first_name"></td>
+</tr>
+<tr>
+<td>Last Name:</td>
+<td><input type="text" name="last_name"></td>
+</tr>
+<tr>
+<td colspan="2"><input type="button" value="Submit"></td>
+</tr>
+</tbody></table>
+</form>
+</pre>
+<p>Now you can enter the First and Last Name and then click the submit button to see the following result −</p>
+<pre class="result notranslate">{"first_name":"John","last_name":"Paul"}
+</pre>
+<h2>File Upload</h2>
+<p>The following HTML code creates a file uploader form. This form has method attribute set to <b>POST</b> and enctype attribute is set to <b>multipart/form-data</b></p>
+<pre class="prettyprint notranslate prettyprinted"><span class="tag">&lt;html&gt;</span><span class="pln">
+   </span><span class="tag">&lt;head&gt;</span><span class="pln">
+      </span><span class="tag">&lt;title&gt;</span><span class="pln">File Uploading Form</span><span class="tag">&lt;/title&gt;</span><span class="pln">
+   </span><span class="tag">&lt;/head&gt;</span><span class="pln">
+
+   </span><span class="tag">&lt;body&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h3&gt;</span><span class="pln">File Upload:</span><span class="tag">&lt;/h3&gt;</span><span class="pln">
+      Select a file to upload: </span><span class="tag">&lt;br</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+      
+      </span><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">action</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"http://127.0.0.1:8081/file_upload"</span><span class="pln"> </span><span class="atn">method</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"POST"</span><span class="pln"> 
+         </span><span class="atn">enctype</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"multipart/form-data"</span><span class="tag">&gt;</span><span class="pln">
+         </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"file"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"file"</span><span class="pln"> </span><span class="atn">size</span><span class="pun">=</span><span class="atv">"50"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+         </span><span class="tag">&lt;br</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+         </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">value</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"Upload File"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/form&gt;</span><span class="pln">
+      
+   </span><span class="tag">&lt;/body&gt;</span><span class="pln">
+</span><span class="tag">&lt;/html&gt;</span></pre>
+<p>Let's save above code in index.htm and modify server.js to handle home page requests as well as file upload.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="kwd">var</span><span class="pln"> express </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'express'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> app </span><span class="pun">=</span><span class="pln"> express</span><span class="pun">();</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> fs </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">"fs"</span><span class="pun">);</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> bodyParser </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'body-parser'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> multer  </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'multer'</span><span class="pun">);</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">use</span><span class="pun">(</span><span class="pln">express</span><span class="pun">.</span><span class="kwd">static</span><span class="pun">(</span><span class="str">'public'</span><span class="pun">));</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">use</span><span class="pun">(</span><span class="pln">bodyParser</span><span class="pun">.</span><span class="pln">urlencoded</span><span class="pun">({</span><span class="pln"> extended</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pln"> </span><span class="pun">}));</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">use</span><span class="pun">(</span><span class="pln">multer</span><span class="pun">({</span><span class="pln"> dest</span><span class="pun">:</span><span class="pln"> </span><span class="str">'/tmp/'</span><span class="pun">}));</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/index.htm'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   res</span><span class="pun">.</span><span class="pln">sendFile</span><span class="pun">(</span><span class="pln"> __dirname </span><span class="pun">+</span><span class="pln"> </span><span class="str">"/"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"index.htm"</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="pln">post</span><span class="pun">(</span><span class="str">'/file_upload'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">req</span><span class="pun">.</span><span class="pln">files</span><span class="pun">.</span><span class="pln">file</span><span class="pun">.</span><span class="pln">name</span><span class="pun">);</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">req</span><span class="pun">.</span><span class="pln">files</span><span class="pun">.</span><span class="pln">file</span><span class="pun">.</span><span class="pln">path</span><span class="pun">);</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">req</span><span class="pun">.</span><span class="pln">files</span><span class="pun">.</span><span class="pln">file</span><span class="pun">.</span><span class="pln">type</span><span class="pun">);</span><span class="pln">
+   </span><span class="kwd">var</span><span class="pln"> file </span><span class="pun">=</span><span class="pln"> __dirname </span><span class="pun">+</span><span class="pln"> </span><span class="str">"/"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> req</span><span class="pun">.</span><span class="pln">files</span><span class="pun">.</span><span class="pln">file</span><span class="pun">.</span><span class="pln">name</span><span class="pun">;</span><span class="pln">
+   
+   fs</span><span class="pun">.</span><span class="pln">readFile</span><span class="pun">(</span><span class="pln"> req</span><span class="pun">.</span><span class="pln">files</span><span class="pun">.</span><span class="pln">file</span><span class="pun">.</span><span class="pln">path</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">err</span><span class="pun">,</span><span class="pln"> data</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      fs</span><span class="pun">.</span><span class="pln">writeFile</span><span class="pun">(</span><span class="pln">file</span><span class="pun">,</span><span class="pln"> data</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">err</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+         </span><span class="kwd">if</span><span class="pun">(</span><span class="pln"> err </span><span class="pun">){</span><span class="pln">
+            console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln"> err </span><span class="pun">);</span><span class="pln">
+            </span><span class="pun">}</span><span class="kwd">else</span><span class="pun">{</span><span class="pln">
+               response </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                  message</span><span class="pun">:</span><span class="str">'File uploaded successfully'</span><span class="pun">,</span><span class="pln">
+                  filename</span><span class="pun">:</span><span class="pln">req</span><span class="pun">.</span><span class="pln">files</span><span class="pun">.</span><span class="pln">file</span><span class="pun">.</span><span class="pln">name
+               </span><span class="pun">};</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+         console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln"> response </span><span class="pun">);</span><span class="pln">
+         res</span><span class="pun">.</span><span class="kwd">end</span><span class="pun">(</span><span class="pln"> JSON</span><span class="pun">.</span><span class="pln">stringify</span><span class="pun">(</span><span class="pln"> response </span><span class="pun">)</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+      </span><span class="pun">});</span><span class="pln">
+   </span><span class="pun">});</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> server </span><span class="pun">=</span><span class="pln"> app</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">(</span><span class="lit">8081</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">address
+   </span><span class="kwd">var</span><span class="pln"> port </span><span class="pun">=</span><span class="pln"> server</span><span class="pun">.</span><span class="pln">address</span><span class="pun">().</span><span class="pln">port
+   
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Example app listening at http://%s:%s"</span><span class="pun">,</span><span class="pln"> host</span><span class="pun">,</span><span class="pln"> port</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">})</span></pre>
+<p>Accessing the HTML document using <i>http://127.0.0.1:8081/index.htm</i> will generate the following form −</p>
+<pre class="result notranslate"><b>File Upload:</b>
+Select a file to upload: <br>
+<input type="file" name="file" size="50">
+<br>
+<input type="button" value="Upload File">
+NOTE: This is just dummy form and would not work, but it must work at your server.
+</pre>
+<h2>Cookies Management</h2>
+<p>You can send cookies to a Node.js server which can handle the same using the following middleware option. Following is a simple example to print all the cookies sent by the client.</p>
+<pre class="prettyprint notranslate prettyprinted"><span class="kwd">var</span><span class="pln"> express      </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'express'</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> cookieParser </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">require</span><span class="pun">(</span><span class="str">'cookie-parser'</span><span class="pun">)</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> app </span><span class="pun">=</span><span class="pln"> express</span><span class="pun">()</span><span class="pln">
+app</span><span class="pun">.</span><span class="kwd">use</span><span class="pun">(</span><span class="pln">cookieParser</span><span class="pun">())</span><span class="pln">
+
+app</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">'/'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">req</span><span class="pun">,</span><span class="pln"> res</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">"Cookies: "</span><span class="pun">,</span><span class="pln"> req</span><span class="pun">.</span><span class="pln">cookies</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">})</span><span class="pln">
+app</span><span class="pun">.</span><span class="pln">listen</span><span class="pun">(</span><span class="lit">8081</span><span class="pun">)</span></pre>
+<hr>
+<div class="pre-btn">
+<a href="https://www.tutorialspoint.com/nodejs/nodejs_web_module.htm"><i class="icon icon-arrow-circle-o-left big-font"></i> Previous Page</a>
+</div>
+<div class="print-btn center">
+<a href="https://www.tutorialspoint.com/cgi-bin/printpage.cgi" target="_blank"><i class="icon icon-print big-font"></i> Print</a>
+</div>
+<div class="nxt-btn">
+<a href="https://www.tutorialspoint.com/nodejs/nodejs_restful_api.htm">Next Page <i class="icon icon-arrow-circle-o-right big-font"></i>&nbsp;</a>
+</div>
+<hr>
+<!-- PRINTING ENDS HERE -->
+<div class="bottomgooglead">
+<div class="bottomadtag">Advertisements</div>
+<script type="text/javascript"><!--
+var width = 580;
+var height = 400;
+var format = "580x400_as";
+if( window.innerWidth < 468 ){
+   width = 300;
+   height = 250;
+   format = "300x250_as";
+}
+google_ad_client = "pub-7133395778201029";
+google_ad_width = width;
+google_ad_height = height;
+google_ad_format = format;
+google_ad_type = "image";
+google_ad_channel ="";
+//--></script>
+<script type="text/javascript" src="./Node.js Express Framework_files/show_ads.js.tải xuống">
+</script><ins id="aswift_1_expand" style="display:inline-table;border:none;height:400px;margin:0;padding:0;position:relative;visibility:visible;width:580px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:400px;margin:0;padding:0;position:relative;visibility:visible;width:580px;background-color:transparent"><iframe width="580" height="400" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" src="./Node.js Express Framework_files/saved_resource(1).html"></iframe></ins></ins>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-3" id="rightbar">
+<div class="simple-ad">
+<a href="javascript:void(0)" onclick="var sTop = window.screen.height/2-(218); var sLeft = window.screen.width/2-(313);window.open(&#39;https://www.facebook.com/sharer.php?u=&#39; + &#39;http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm&#39;,&#39;sharer&#39;,&#39;toolbar=0,status=0,width=626,height=456,top=&#39;+sTop+&#39;,left=&#39;+sLeft);return false;">
+<img src="./Node.js Express Framework_files/facebookIcon.jpg" alt="img">
+</a>
+<a href="javascript:void(0)" onclick="var sTop = window.screen.height/2-(218); var sLeft = window.screen.width/2-(313);window.open(&#39;https://twitter.com/share?url=&#39; + &#39;http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm&#39;,&#39;sharer&#39;,&#39;toolbar=0,status=0,width=626,height=456,top=&#39;+sTop+&#39;,left=&#39;+sLeft);return false;">
+<img src="./Node.js Express Framework_files/twitterIcon.jpg" alt="img">
+</a>
+<a href="javascript:void(0)" onclick="var sTop = window.screen.height/2-(218); var sLeft = window.screen.width/2-(313);window.open(&#39;https://www.linkedin.com/cws/share?url=&#39; + &#39;http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm&amp;title=&#39;+ document.title,&#39;sharer&#39;,&#39;toolbar=0,status=0,width=626,height=456,top=&#39;+sTop+&#39;,left=&#39;+sLeft);return false;">
+<img src="./Node.js Express Framework_files/linkedinIcon.jpg" alt="img">
+</a>
+<a href="javascript:void(0)" onclick="var sTop = window.screen.height/2-(218); var sLeft = window.screen.width/2-(313);window.open(&#39;https://plus.google.com/share?url=http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm&#39;,&#39;sharer&#39;,&#39;toolbar=0,status=0,width=626,height=456,top=&#39;+sTop+&#39;,left=&#39;+sLeft);return false;">
+<img src="./Node.js Express Framework_files/googlePlusIcon.jpg" alt="img">
+</a>
+<a href="javascript:void(0)" onclick="var sTop = window.screen.height/2-(218); var sLeft = window.screen.width/2-(313);window.open(&#39;https://www.stumbleupon.com/submit?url=http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm&amp;title=&#39;+ document.title,&#39;sharer&#39;,&#39;toolbar=0,status=0,width=626,height=456,top=&#39;+sTop+&#39;,left=&#39;+sLeft);return false;">
+<img src="./Node.js Express Framework_files/StumbleUponIcon.jpg" alt="img">
+</a>
+<a href="javascript:void(0)" onclick="var sTop = window.screen.height/2-(218); var sLeft = window.screen.width/2-(313);window.open(&#39;https://reddit.com/submit?url=http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm&amp;title=&#39;+ document.title,&#39;sharer&#39;,&#39;toolbar=0,status=0,width=626,height=656,top=&#39;+sTop+&#39;,left=&#39;+sLeft);return false;">
+<img src="./Node.js Express Framework_files/reddit.jpg" alt="img">
+</a>
+</div>
+<div class="rightgooglead">
+<script type="text/javascript"><!--
+google_ad_client = "pub-7133395778201029";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "image";
+google_ad_channel ="";
+//--></script>
+<script type="text/javascript" src="./Node.js Express Framework_files/show_ads.js.tải xuống">
+</script><ins id="aswift_2_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" src="./Node.js Express Framework_files/saved_resource(2).html"></iframe></ins></ins>
+</div>
+<div class="rightgooglead">
+<script type="text/javascript"><!--
+google_ad_client = "pub-7133395778201029";
+google_ad_width = 300;
+google_ad_height = 600;
+google_ad_format = "300x600_as";
+google_ad_type = "image";
+google_ad_channel ="";
+//--></script>
+<script type="text/javascript" src="./Node.js Express Framework_files/show_ads.js.tải xuống">
+</script><ins id="aswift_3_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_3_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;" src="./Node.js Express Framework_files/saved_resource(3).html"></iframe></ins></ins>
+</div>
+<div class="rightgooglead">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-2537027957187252";
+/* Right Side Ad */
+google_ad_slot = "right_side_ad";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="./Node.js Express Framework_files/show_ads.js.tải xuống">
+</script><ins id="aswift_4_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_4_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;" src="./Node.js Express Framework_files/saved_resource(4).html"></iframe></ins></ins>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="footer-copyright">
+<div class="container">
+<div class="row">
+<div class="col-md-1">
+<a href="https://www.tutorialspoint.com/index.htm" class="logo"> <img alt="Tutorials Point" class="img-responsive" src="./Node.js Express Framework_files/logo-footer.png"> </a>
+</div>
+<div class="col-md-4 col-sm-12 col-xs-12">
+   <nav id="sub-menu">
+      <ul>
+         <li><a href="https://www.tutorialspoint.com/about/tutorials_writing.htm">Write for us</a></li>
+         <li><a href="https://www.tutorialspoint.com/about/faq.htm">FAQ's</a></li>
+         <li><a href="https://www.tutorialspoint.com/about/about_helping.htm">Helping</a></li>
+         <li><a href="https://www.tutorialspoint.com/about/contact_us.htm">Contact</a></li>
+      </ul>
+   </nav>
+</div>
+<div class="col-md-3 col-sm-12 col-xs-12">
+<p>© Copyright 2016. All Rights Reserved.</p>
+</div>
+<div class="col-md-4 col-sm-12 col-xs-12">
+   <div class="news-group">
+      <input type="text" class="form-control-foot search" name="textemail" id="textemail" autocomplete="off" placeholder="Enter email for newsletter" onfocus="if (this.value == &#39;Enter email for newsletter...&#39;) {this.value = &#39;&#39;;}" onblur="if (this.value == &#39;&#39;) {this.value = &#39;Enter email for newsletter...&#39;;}">
+      <span class="input-group-btn"> <button class="btn btn-default btn-footer" id="btnemail" type="submit" onclick="javascript:void(0);">go</button> </span>
+      <div id="newsresponse"></div>
+   </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Libs -->
+<script type="text/javascript" src="./Node.js Express Framework_files/custom-min.js.tải xuống"></script><a class="scroll-to-top visible" href="https://www.tutorialspoint.com/#" id="scrollToTop"><i class="icon icon-chevron-up icon-white"></i></a>
+<script src="./Node.js Express Framework_files/urchin.js.tải xuống">
+</script>
+<script type="text/javascript">
+_uacct = "UA-232293-6";
+urchinTracker();
+$('.pg-icon').click(function(){
+   $('.wrapLoader').show();
+});
+</script>
+<script type="text/javascript" src="./Node.js Express Framework_files/jquery.colorbox-min.js.tải xuống"></script>
+<script type="text/javascript">
+   var tryit = new $.TryIt('/nodejs/try_nodejs.php');
+   tryit.compile();
+</script><div id="source" style="display:none;"></div><div id="supportsource" style="display:none;"></div><div id="utilsource" style="display:none;"></div><div id="extrasource" style="display:none;"></div><div id="inputs" style="display:none;"></div><div id="filename" style="display:none;"></div>
+
+
+<div class="autocomplete-suggestions " style="top: 5496px; left: 0px; width: 8px;"></div><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div></body></html>
